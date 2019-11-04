@@ -28,7 +28,8 @@ patches_names_t PATCHES_NAMES = {
 	std::make_pair(FindSuppresorCode, "Supressor"),
 	std::make_pair(FindWeaponKickbackCode, "Weapon kickback"),
 	std::make_pair(FindWeaponSpreadCode, "Weapon spread"),
-	std::make_pair(FindWeaponSwayCode, "Weapon sway")
+	std::make_pair(FindWeaponSwayCode, "Weapon sway"),
+	std::make_pair(FindPlayerHealthCode, "Player Health")
 };
 
 patches_map_t PATCHES = {
@@ -37,7 +38,8 @@ patches_map_t PATCHES = {
 	std::make_pair(FindSuppresorCode, 5),
 	std::make_pair(FindWeaponKickbackCode, 9),
 	std::make_pair(FindWeaponSpreadCode, 5),
-	std::make_pair(FindWeaponSwayCode, 7)
+	std::make_pair(FindWeaponSwayCode, 7),
+	std::make_pair(FindPlayerHealthCode, 9)
 };
 
 unsigned char* GAME_MODULE_BASE = (unsigned char*)GetModuleHandle("mgsvtpp.exe");
