@@ -1,0 +1,7 @@
+mgsvtpp.exe+12C80E6 - 66 41 89 84 24 0C010000  - mov [r12+0000010C],ax
+
+-> [OFFSET TO mgsvtpp.exe]
+	Updates player health (2 bytes)
+	Previous 2 bytes are 0x03E8 constantly (1000 DEC), some player flag/status, have to check
+	Player's positions X,Y,Z are next 12 bytes (4 byte float)
+	r12 might be base pointer to player struct
