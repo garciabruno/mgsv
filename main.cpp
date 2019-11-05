@@ -29,7 +29,10 @@ patches_names_t PATCHES_NAMES = {
 	std::make_pair(FindWeaponKickbackCode, "Weapon kickback"),
 	std::make_pair(FindWeaponSpreadCode, "Weapon spread"),
 	std::make_pair(FindWeaponSwayCode, "Weapon sway"),
-	std::make_pair(FindPlayerHealthCode, "Player Health")
+	std::make_pair(FindPlayerHealthCode, "Player Health"),
+	std::make_pair(FindSetWeaponReserveAmmoCode, "Weapon reserve"),
+	std::make_pair(FindSetWeaponClipCode, "Weapon clip"),
+	std::make_pair(FindSetSupportWeaponAmmoCode, "Support Weapon Ammo"),
 };
 
 patches_map_t PATCHES = {
@@ -39,13 +42,16 @@ patches_map_t PATCHES = {
 	std::make_pair(FindWeaponKickbackCode, 9),
 	std::make_pair(FindWeaponSpreadCode, 5),
 	std::make_pair(FindWeaponSwayCode, 7),
-	std::make_pair(FindPlayerHealthCode, 9)
+	std::make_pair(FindPlayerHealthCode, 9),
+	std::make_pair(FindSetWeaponReserveAmmoCode, 7),
+	std::make_pair(FindSetWeaponClipCode, 7),
+	std::make_pair(FindSetSupportWeaponAmmoCode, 5),
 };
 
 unsigned char* GAME_MODULE_BASE = (unsigned char*)GetModuleHandle("mgsvtpp.exe");
 unsigned long GAME_MODULE_LENGTH = 0xE1B1000;
 
-BOOL GetPatchAddresses(addresses_map_t& addresses)
+BOOL GetAddressesToPatch(addresses_map_t& addresses)
 {
 	/*
 		Loop all elements in PATCHES, on each run execute the search function and
@@ -98,30 +104,65 @@ BOOL GetPatchAddresses(addresses_map_t& addresses)
 	return TRUE;
 }
 
+BOOL PatchAddresses(addresses_map_t addresses)
+{
+	addresses_map_t::iterator addr = addresses.begin();
+
+	while (addr != addresses.end())
+	{
+		DWORD OldProtect;
+
+		// TODO: Print which function is getting patched
+		printf("Patching (%016llx)\n", (unsigned long long) addr->first);
+
+		VirtualProtect(addr->first, addr->second, PAGE_EXECUTE_READWRITE, &OldProtect);
+		memset(addr->first, 0x90, addr->second);
+		VirtualProtect(addr->first, addr->second, OldProtect, &OldProtect);
+
+		addr++;
+	}
+
+	return TRUE;
+}
+
+BOOL UnpatchAddresses(addresses_map_t addresses)
+{
+	addresses_map_t::iterator addr = addresses.begin();
+	unsigned int bytes_offset = 0;
+
+	while (addr != addresses.end())
+	{
+		DWORD OldProtect;
+
+		// TODO: Print which function is getting unpatched
+		printf("Unpatching (%016llx)\n", (unsigned long long) addr->first);
+
+		VirtualProtect(addr->first, addr->second, PAGE_EXECUTE_READWRITE, &OldProtect);
+		// Restore the N bytes from INSTRUCTION_BYTES + offset
+		memcpy(addr->first, INSTRUCTIONS_BYTES + bytes_offset, addr->second);
+		VirtualProtect(addr->first, addr->second, OldProtect, &OldProtect);
+
+		// Increment the offset by the amount of bytes we just copied
+		bytes_offset += addr->second;
+
+		TOTAL_INSTRUCTION_BYTES -= addr->second;
+		addr++;
+	}
+
+	return TRUE;
+}
+
 DWORD WINAPI ModThread(LPVOID lpParam)
 {
 	printf("[ Loading patches ]\n");
 
-	if (!GetPatchAddresses(ADDRESSES_MAP))
+	if (!GetAddressesToPatch(ADDRESSES_MAP))
 	{
 		printf("Failed to get addresses to patch!\n");
 	}
 	else
 	{
-		addresses_map_t::iterator addr = ADDRESSES_MAP.begin();
-
-		while (addr != ADDRESSES_MAP.end())
-		{
-			DWORD oldProtect;
-
-			printf("Patching (%016llx)\n", (unsigned long long) addr->first);
-
-			VirtualProtect(addr->first, addr->second, PAGE_EXECUTE_READWRITE, &oldProtect);
-			memset(addr->first, 0x90, addr->second);
-			VirtualProtect(addr->first, addr->second, oldProtect, &oldProtect);
-
-			addr++;
-		}
+		PatchAddresses(ADDRESSES_MAP);
 	}
 
 	while (TRUE)
@@ -144,7 +185,13 @@ DWORD WINAPI ModThread(LPVOID lpParam)
 			}
 
 			printf("Unloading mgsvmod.dll\n");
-			
+
+			printf("Unpatching addresses\n");
+			UnpatchAddresses(ADDRESSES_MAP);
+
+			if (INSTRUCTIONS_BYTES != NULL)
+				free(INSTRUCTIONS_BYTES);
+
 			fclose(stdout);
 			
 			if (!FreeConsole())
