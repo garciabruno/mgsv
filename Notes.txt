@@ -5,3 +5,8 @@ mgsvtpp.exe+12C80E6 - 66 41 89 84 24 0C010000  - mov [r12+0000010C],ax
 	Previous 2 bytes are 0x03E8 constantly (1000 DEC), some player flag/status, have to check
 	Player's positions X,Y,Z are next 12 bytes (4 byte float)
 	r12 might be base pointer to player struct
+
+
+1410858E7 - 66 89 85 B0 00 00 00     - mov [rbp+000000B0],ax
+149458908 - 66 89 83 60 02 00 00     - mov [rbx+00000260],ax
+148E9EBC2 - 66 41 89 14 00        - mov [r8+rax],dx
