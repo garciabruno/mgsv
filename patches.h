@@ -129,3 +129,54 @@ inline unsigned char* FindPlayerHealthCode(unsigned char* start, unsigned long l
 		static char scan[] = "\x48\x89\xC8\x48\x83\xEA\x17\x48\x01\xC2\xEB\x0C\x90\x90\x90\x90\x48\xFF\xC0\x48\x39\xD0\x73\x19\x81\x38\x66\x41\x89\x84\x75\xF0\x80\x78\x09\xB8\x75\xEA\x81\x78\x0E\x66\x41\x89\x84\x75\xE1\xEB\x02\x31\xC0\xC3";
 	return ((unsigned char* (*)(unsigned char*, unsigned long)) & scan)((unsigned char*)start, length);
 }
+
+/*
+	SetWeaponReserveAmmoCode (7 bytes)
+
+	SIG: \x66\x89\x85\xB0\x00\x00\x00\x4D\x8B\x04\x24\x41\xFF\x90\x88\x00\x00\x00
+	MSK: xx?????xxx?xx?????
+	MODULE: mgsvtpp.exe
+	LENGTH: 0xE1B1000
+*/
+
+inline unsigned char* FindSetWeaponReserveAmmoCode(unsigned char* start, unsigned long length) {
+#pragma section(".text",read,execute)
+	__declspec(align(16))
+		__declspec(allocate(".text"))
+		static char scan[] = "\x48\x89\xC8\x48\x83\xEA\x12\x48\x01\xC2\xEB\x0C\x90\x90\x90\x90\x48\xFF\xC0\x48\x39\xD0\x73\x1F\x66\x81\x38\x66\x89\x75\xF1\x66\x81\x78\x07\x4D\x8B\x75\xE9\x80\x78\x09\x04\x75\xE3\x66\x81\x78\x0B\x41\xFF\x75\xDB\xEB\x02\x31\xC0\xC3";
+	return ((unsigned char* (*)(unsigned char*, unsigned long)) & scan)((unsigned char*)start, length);
+}
+
+/*
+	SetWeaponClipCode (7 bytes)
+
+	SIG: \x66\x89\x83\x60\x02\x00\x00\x83\xFD\x05\x74\x28
+	MSK: xx?????x??xx
+	MODULE: mgsvtpp.exe
+	LENGTH: 0xE1B1000
+*/
+
+inline unsigned char* FindSetWeaponClipCode(unsigned char* start, unsigned long length) {
+#pragma section(".text",read,execute)
+	__declspec(align(16))
+		__declspec(allocate(".text"))
+		static char scan[] = "\x48\x89\xC8\x48\x83\xEA\x0C\x48\x01\xC2\xEB\x0C\x90\x90\x90\x90\x48\xFF\xC0\x48\x39\xD0\x73\x17\x66\x81\x38\x66\x89\x75\xF1\x80\x78\x07\x83\x75\xEB\x66\x81\x78\x0A\x74\x28\x75\xE3\xEB\x02\x31\xC0\xC3";
+	return ((unsigned char* (*)(unsigned char*, unsigned long)) & scan)((unsigned char*)start, length);
+}
+
+/*
+	SetSupportWeaponAmmoCode (5 bytes)
+
+	SIG: \x66\x41\x89\x14\x00\xC3\x4C\x8B\x2C\x24
+	MSK: xxxx?xxxx?
+	MODULE: mgsvtpp.exe
+	LENGTH: 0xE1B1000
+*/
+
+inline unsigned char* FindSetSupportWeaponAmmoCode(unsigned char* start, unsigned long length) {
+#pragma section(".text",read,execute)
+	__declspec(align(16))
+		__declspec(allocate(".text"))
+		static char scan[] = "\x48\x89\xC8\x48\x83\xEA\x0A\x48\x01\xC2\xEB\x0C\x90\x90\x90\x90\x48\xFF\xC0\x48\x39\xD0\x73\x13\x81\x38\x66\x41\x89\x14\x75\xF0\x81\x78\x05\xC3\x4C\x8B\x2C\x75\xE7\xEB\x02\x31\xC0\xC3";
+	return ((unsigned char* (*)(unsigned char*, unsigned long)) & scan)((unsigned char*)start, length);
+}
