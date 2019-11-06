@@ -1,5 +1,26 @@
 #pragma once
 
+#include <Windows.h>
+#include <stdbool.h>
+#include <map>
+
+typedef unsigned char* (*find_t)(unsigned char*, unsigned long);
+typedef std::map<unsigned char*, int> addresses_map_t;
+typedef std::map<find_t, unsigned long> patches_map_t;
+typedef std::map<find_t, const char*> patches_names_t;
+
+// Pointer to an array containing all patched instruction's bytes
+extern unsigned char* INSTRUCTIONS_BYTES;
+// Amount of instruction's bytes we have patched
+extern unsigned int TOTAL_INSTRUCTION_BYTES;
+
+extern unsigned char* GAME_MODULE_BASE;
+extern unsigned int GAME_MODULE_LENGTH;
+
+BOOL GetAddresses(addresses_map_t&);
+BOOL PatchAddresses(addresses_map_t);
+BOOL UnpatchAddresses(addresses_map_t);
+
 /*
 	AmmoCode
 	0000000148e9ea30 (5 bytes)

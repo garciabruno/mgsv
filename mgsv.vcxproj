@@ -104,6 +104,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="patches.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
