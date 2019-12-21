@@ -34,13 +34,6 @@ DWORD WINAPI ModThread(LPVOID lpParam)
 
 	while (TRUE)
 	{
-		/*
-			TODO:
-			  * Unhook all functions
-			  * Unpatch all instructions
-			  * Free instruction's bytes array (if != NULL)
-		*/
-
 		if (GetAsyncKeyState(VK_F10) & 1)
 		{
 			HMODULE hModule = GetModuleHandle("mod.dll");
