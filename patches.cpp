@@ -11,6 +11,7 @@ patches_names_t PATCHES_NAMES = {
 	std::make_pair(FindSetWeaponReserveAmmoCode, "Weapon reserve"),
 	std::make_pair(FindSetWeaponClipCode, "Weapon clip"),
 	std::make_pair(FindSetSupportWeaponAmmoCode, "Support Weapon Ammo"),
+	std::make_pair(FindSetFultonCode, "Inventory (Fulton)")
 };
 
 patches_map_t PATCHES = {
@@ -24,6 +25,7 @@ patches_map_t PATCHES = {
 	std::make_pair(FindSetWeaponReserveAmmoCode, 7),
 	std::make_pair(FindSetWeaponClipCode, 7),
 	std::make_pair(FindSetSupportWeaponAmmoCode, 5),
+	std::make_pair(FindSetFultonCode, 7)
 };
 
 BOOL GetAddresses(addresses_map_t& addresses)
