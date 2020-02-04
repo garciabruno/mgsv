@@ -103,14 +103,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="hooks.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="patches.cpp" />
+    <ClCompile Include="Utils\krunk.cpp" />
+    <ClCompile Include="Utils\udis86\libudis86\decode.c" />
+    <ClCompile Include="Utils\udis86\libudis86\itab.c" />
+    <ClCompile Include="Utils\udis86\libudis86\syn-att.c" />
+    <ClCompile Include="Utils\udis86\libudis86\syn-intel.c" />
+    <ClCompile Include="Utils\udis86\libudis86\syn.c" />
+    <ClCompile Include="Utils\udis86\libudis86\udis86.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="hooks.h" />
     <ClInclude Include="patches.h" />
+    <ClInclude Include="Utils\krunk.h" />
+    <ClInclude Include="Utils\udis86\libudis86\decode.h" />
+    <ClInclude Include="Utils\udis86\libudis86\extern.h" />
+    <ClInclude Include="Utils\udis86\libudis86\itab.h" />
+    <ClInclude Include="Utils\udis86\libudis86\syn.h" />
+    <ClInclude Include="Utils\udis86\libudis86\types.h" />
+    <ClInclude Include="Utils\udis86\libudis86\udint.h" />
+    <ClInclude Include="Utils\udis86\udis86.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

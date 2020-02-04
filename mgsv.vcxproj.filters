@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{06e86757-860b-4f57-9d6d-088ef5ac0bdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils\udis86">
+      <UniqueIdentifier>{cad93364-4895-48df-b55b-1baf567c9755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils\udis86\libudis86">
+      <UniqueIdentifier>{08464d83-ae68-4765-9a29-dc7caf6a4608}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,6 +30,30 @@
     <ClCompile Include="patches.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\udis86\libudis86\decode.c">
+      <Filter>Source Files\Utils\udis86\libudis86</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\udis86\libudis86\itab.c">
+      <Filter>Source Files\Utils\udis86\libudis86</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\udis86\libudis86\syn.c">
+      <Filter>Source Files\Utils\udis86\libudis86</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\udis86\libudis86\syn-att.c">
+      <Filter>Source Files\Utils\udis86\libudis86</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\udis86\libudis86\syn-intel.c">
+      <Filter>Source Files\Utils\udis86\libudis86</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\udis86\libudis86\udis86.c">
+      <Filter>Source Files\Utils\udis86\libudis86</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\krunk.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -28,6 +61,33 @@
   <ItemGroup>
     <ClInclude Include="patches.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\udis86\libudis86\decode.h">
+      <Filter>Source Files\Utils\udis86\libudis86</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\udis86\libudis86\extern.h">
+      <Filter>Source Files\Utils\udis86\libudis86</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\udis86\libudis86\itab.h">
+      <Filter>Source Files\Utils\udis86\libudis86</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\udis86\libudis86\syn.h">
+      <Filter>Source Files\Utils\udis86\libudis86</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\udis86\libudis86\types.h">
+      <Filter>Source Files\Utils\udis86\libudis86</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\udis86\libudis86\udint.h">
+      <Filter>Source Files\Utils\udis86\libudis86</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\udis86\udis86.h">
+      <Filter>Source Files\Utils\udis86</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\krunk.h">
+      <Filter>Source Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
