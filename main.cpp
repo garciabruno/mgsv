@@ -6,8 +6,8 @@
 #include <string.h>
 
 #include "patches.h"
-
-CRITICAL_SECTION cs_print;
+#include "hooks.h"
+#include "Utils/krunk.h"
 
 // Memory pointer to instruction length map
 addresses_map_t ADDRESSES_MAP;
@@ -18,6 +18,10 @@ unsigned int TOTAL_INSTRUCTION_BYTES = 0;
 
 unsigned char* GAME_MODULE_BASE = (unsigned char*)GetModuleHandle("mgsvtpp.exe");
 unsigned int GAME_MODULE_LENGTH = 0xE1B1000;
+
+/* Hooks definitions */
+
+uint64_t(*setpos_code_base)(uint64_t, int32_t);
 
 DWORD WINAPI ModThread(LPVOID lpParam)
 {
@@ -31,6 +35,11 @@ DWORD WINAPI ModThread(LPVOID lpParam)
 	{
 		PatchAddresses(ADDRESSES_MAP);
 	}
+
+	setpos_code_base = (decltype(setpos_code_base)) FindSetPosCode(GAME_MODULE_BASE, GAME_MODULE_LENGTH);
+
+	printf("\t SetPosCode: %016llx\n", (uint64_t) setpos_code_base);
+	Hook(setpos_code_base, HookSetPos);
 
 	while (TRUE)
 	{
@@ -76,8 +85,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpvReserved)
 	{
 		case DLL_PROCESS_ATTACH:
 		{
-			DisableThreadLibraryCalls(hinstDLL);
-			InitializeCriticalSection(&cs_print);
+			DisableThreadLibraryCalls(hinstDLL);			
 
 			if (!AllocConsole())
 			{
